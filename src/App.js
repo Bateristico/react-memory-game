@@ -15,6 +15,9 @@ function App() {
   const [cards, setCards] = useState([]);
   // increasing turns every game
   const [turns, setTurns] = useState(0);
+  // store the two cards the user chooses
+  const [choiceOne, setChoiceOne] = useState(null);
+  const [choiceTwo, setChoiceTwo] = useState(null);
 
   // need to shuffle cards
   const shuffleCards = () => {
@@ -26,8 +29,11 @@ function App() {
     setTurns(0);
   };
 
-  // console.log(`cards ${cards} turns ${turns}`);
-  console.log(cards, turns);
+  // handle a choice
+  const handleChoice = card => {
+    // check if there has been choice one already
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+  };
 
   return (
     <div className="App">
@@ -37,7 +43,7 @@ function App() {
       <div className="card-grid">
         {cards.map(card => (
           // console.log(card)
-          <SingleCard key={card.id} card={card} />
+          <SingleCard key={card.id} card={card} handleChoice={handleChoice} />
         ))}
       </div>
     </div>
