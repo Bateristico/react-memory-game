@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import SingleCard from './components/SingleCard.js';
 
@@ -33,6 +33,27 @@ function App() {
   const handleChoice = card => {
     // check if there has been choice one already
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+  };
+
+  // compare the two options selected by the user
+  useEffect(() => {
+    // avoid the component mounted execution
+    if (choiceOne && choiceTwo) {
+      if (choiceOne.src === choiceTwo.src) {
+        console.log('MATCH');
+        resetTurn();
+      } else {
+        console.log('DOES NOT MATCH');
+        resetTurn();
+      }
+    } else {
+    }
+  }, [choiceOne, choiceTwo]);
+
+  const resetTurn = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns(prevTurns => prevTurns + 1);
   };
 
   return (
