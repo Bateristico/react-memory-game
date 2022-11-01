@@ -18,6 +18,7 @@ function App() {
   // store the two cards the user chooses
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
+  const [disabled, setDisabled] = useState(false);
 
   // need to shuffle cards
   const shuffleCards = () => {
@@ -39,6 +40,7 @@ function App() {
   useEffect(() => {
     // avoid the component mounted execution
     if (choiceOne && choiceTwo) {
+      setDisabled(true);
       if (choiceOne.src === choiceTwo.src) {
         // console.log('MATCH');
         // update matched property if they are equal
@@ -66,6 +68,7 @@ function App() {
     setChoiceOne(null);
     setChoiceTwo(null);
     setTurns(prevTurns => prevTurns + 1);
+    setDisabled(false);
   };
 
   return (
@@ -81,6 +84,7 @@ function App() {
             card={card}
             handleChoice={handleChoice}
             flipped={card === choiceOne || card === choiceTwo || card.matched}
+            disabled={disabled}
           />
         ))}
       </div>
