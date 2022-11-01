@@ -54,7 +54,7 @@ function App() {
         resetTurn();
       } else {
         // console.log('DOES NOT MATCH');
-        resetTurn();
+        setTimeout(() => resetTurn(), 1000);
       }
     } else {
     }
